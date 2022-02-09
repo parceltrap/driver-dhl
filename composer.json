@@ -1,0 +1,41 @@
+{
+    "name": "parceltrap/driver-dhl",
+    "type": "library",
+    "description": "A DHL driver for ParcelTrap",
+    "license": "MIT",
+    "require": {
+        "php": "^8.1",
+        "parceltrap/parceltrap": "^1.0"
+    },
+    "require-dev": {
+        "pestphp/pest": "^1.21.1",
+        "phpstan/phpstan": "^1.4.5",
+        "symfony/var-dumper": "^5.4.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "ParcelTrap\\DHL\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ParcelTrap\\DHL\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test:types": "phpstan analyse --ansi --memory-limit=-1",
+        "test:unit": "pest --colors=always",
+        "test": [
+            "@test:types",
+            "@test:unit"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
