@@ -19,7 +19,29 @@ composer require parceltrap/driver-dhl
 
 ## Usage
 
-...
+```php
+use ParcelTrap\ParcelTrap;
+use ParcelTrap\DHL\DHL;
+
+$parcelTrap = ParcelTrap::make([
+    'royal_mail' => DHL::make([
+        'client_id' => 'your-client-id',
+    ]);
+]);
+```
+
+#### Using with the Laravel package
+
+Add the following to your `config/parceltrap.php` configuration file:
+
+```php
+'royal_mail' => [
+    'client_id' => env('PARCELTRAP_DHL_CLIENT_ID'),
+    'driver' => ParcelTrap\DHL\DHL::class,
+],
+```
+
+Configure the relevant environment variables in your `.env` file.
 
 ## Change log
 
@@ -61,13 +83,13 @@ Read more about Treeware at [treeware.earth][link-treeware].
 [ico-version]: https://img.shields.io/packagist/v/parceltrap/driver-dhl.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-github-actions]: https://img.shields.io/github/workflow/status/parceltrap/driver-dhl/Tests.svg?style=flat-square
-[ico-styleci]: https://styleci.io/repos/000000/shield
+[ico-styleci]: https://styleci.io/repos/457523588/shield
 [ico-downloads]: https://img.shields.io/packagist/dt/parceltrap/driver-dhl.svg?style=flat-square
 [ico-treeware-gifting]: https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/parceltrap/driver-dhl
 [link-github-actions]: https://github.com/parceltrap/driver-dhl/actions
-[link-styleci]: https://styleci.io/repos/000000
+[link-styleci]: https://styleci.io/repos/457523588
 [link-downloads]: https://packagist.org/packages/parceltrap/driver-dhl
 [link-treeware]: https://treeware.earth
 [link-treeware-gifting]: https://ecologi.com/owenvoke?gift-trees
