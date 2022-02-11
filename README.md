@@ -24,7 +24,7 @@ use ParcelTrap\ParcelTrap;
 use ParcelTrap\DHL\DHL;
 
 $parcelTrap = ParcelTrap::make([
-    'royal_mail' => DHL::make([
+    'dhl' => DHL::make([
         'client_id' => 'your-client-id',
     ]);
 ]);
@@ -35,7 +35,7 @@ $parcelTrap = ParcelTrap::make([
 Add the following to your `config/parceltrap.php` configuration file:
 
 ```php
-'royal_mail' => [
+'dhl' => [
     'client_id' => env('PARCELTRAP_DHL_CLIENT_ID'),
     'driver' => ParcelTrap\DHL\DHL::class,
 ],
