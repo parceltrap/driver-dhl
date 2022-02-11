@@ -17,9 +17,17 @@ class DHL implements Driver
     public const BASE_URI = 'https://api-eu.dhl.com';
     private ClientInterface $client;
 
-    public function __construct(private string $clientId, ?ClientInterface $client = null)
+    private function __construct(private string $clientId, ?ClientInterface $client = null)
     {
         $this->client = $client ?? GuzzleFactory::make(['base_uri' => self::BASE_URI]);
+    }
+
+    public static function make(array $config, ?ClientInterface $client = null): self
+    {
+        return new self(
+            clientId: $config['client_id'],
+            client: $client,
+        );
     }
 
     public function find(string $identifier, array $parameters = []): TrackingDetails
