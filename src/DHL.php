@@ -22,6 +22,7 @@ class DHL implements Driver
         $this->client = $client ?? GuzzleFactory::make(['base_uri' => self::BASE_URI]);
     }
 
+    /** @param array{client_id: string} $config */
     public static function make(array $config, ?ClientInterface $client = null): self
     {
         return new self(
