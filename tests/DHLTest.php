@@ -6,10 +6,10 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use ParcelTrap\DHL\DHL;
 use ParcelTrap\DTOs\TrackingDetails;
 use ParcelTrap\Enums\Status;
 use ParcelTrap\ParcelTrap;
-use ParcelTrap\DHL\DHL;
 
 it('can add the DHL driver to ParcelTrap', function () {
     $client = ParcelTrap::make(['dhl' => DHL::make(['client_id' => 'abcdefg'])]);
@@ -36,26 +36,26 @@ it('can call `find` on the DHL driver', function () {
         'estimatedTimeOfDelivery' => '2022-01-01T00:00:00+00:00',
         'events' => [
             [
-             "timestamp" => "2018-03-02T07:53:47Z", 
-             "location" => [
-                "address" => [
-                   "countryCode" => "NL", 
-                   "postalCode" => "1043 AG", 
-                   "addressLocality" => "Oderweg 2, AMSTERDAM" 
-                ] 
-             ], 
-             "statusCode" => "pre-transit", 
-             "status" => "DELIVERED", 
-             "description" => "JESSICA", 
-             "pieceIds" => [
-                      "JD014600006281230701", 
-                      "JD014600006281230702", 
-                      "JD014600006281230703" 
-                   ], 
-             "remark" => "The shipment is pending completion of customs inspection.", 
-             "nextSteps" => "The status will be updated following customs inspection." 
-          ]
-        ]
+                'timestamp' => '2018-03-02T07:53:47Z',
+                'location' => [
+                    'address' => [
+                        'countryCode' => 'NL',
+                        'postalCode' => '1043 AG',
+                        'addressLocality' => 'Oderweg 2, AMSTERDAM',
+                    ],
+                ],
+                'statusCode' => 'pre-transit',
+                'status' => 'DELIVERED',
+                'description' => 'JESSICA',
+                'pieceIds' => [
+                    'JD014600006281230701',
+                    'JD014600006281230702',
+                    'JD014600006281230703',
+                ],
+                'remark' => 'The shipment is pending completion of customs inspection.',
+                'nextSteps' => 'The status will be updated following customs inspection.',
+            ],
+        ],
     ];
 
     $httpMockHandler = new MockHandler([
