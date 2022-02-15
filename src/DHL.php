@@ -55,7 +55,7 @@ class DHL implements Driver
         assert(isset($json['events']), 'The events array is missing from the response');
 
         return new TrackingDetails(
-            identifier: $json['mailPieces']['mailPieceId'],
+            identifier: $json['id'],
             status: $this->mapStatus($json['status']['statusCode']),
             summary: $json['status']['remark'] ?? $json['status']['description'],
             estimatedDelivery: isset($json['estimatedTimeOfDelivery']) ? new DateTimeImmutable($json['estimatedTimeOfDelivery']) : null,
