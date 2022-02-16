@@ -3,6 +3,9 @@
     "type": "library",
     "description": "A DHL driver for ParcelTrap",
     "license": "MIT",
+    "keywords": [
+        "parceltrap-driver"
+    ],
     "require": {
         "php": "^8.1",
         "graham-campbell/guzzle-factory": "^5.0",
