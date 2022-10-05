@@ -22,7 +22,7 @@ class DHLServiceProvider extends ServiceProvider
 
             return new DHL(
                 /** @phpstan-ignore-next-line */
-                clientId: (string) $config->get('parceltrap.dhl.client_id'),
+                clientId: (string) $config->get('parceltrap.drivers.dhl.client_id'),
             );
         });
     }
