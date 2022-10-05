@@ -45,13 +45,13 @@ class DHL implements Driver
 
         $json = $json['shipments'][0];
         assert(isset($json['status']['statusCode']), 'The status is missing from the response');
-        assert(isset($json['status']['description']), 'The summary is missing from the response');
+        assert(isset($json['status']['status']), 'The summary is missing from the response');
         assert(isset($json['events']), 'The events array is missing from the response');
 
         return new TrackingDetails(
             identifier: $json['id'],
             status: $this->mapStatus($json['status']['statusCode']),
-            summary: $json['status']['remark'] ?? $json['status']['description'],
+            summary: $json['status']['remark'] ?? $json['status']['status'],
             estimatedDelivery: isset($json['estimatedTimeOfDelivery']) ? new DateTimeImmutable($json['estimatedTimeOfDelivery']) : null,
             events: $json['events'],
             raw: $json,
