@@ -14,21 +14,13 @@ use ParcelTrap\Enums\Status;
 
 class DHL implements Driver
 {
-    public const BASE_URI = 'https://api-eu.dhl.com';
-    private ClientInterface $client;
+    public const IDENTIFIER = 'dhl';
 
-    private function __construct(private string $clientId, ?ClientInterface $client = null)
+    public const BASE_URI = 'https://api-eu.dhl.com';
+
+    public function __construct(private readonly string $clientId, private ?ClientInterface $client = null)
     {
         $this->client = $client ?? GuzzleFactory::make(['base_uri' => self::BASE_URI]);
-    }
-
-    /** @param array{client_id: string} $config */
-    public static function make(array $config, ?ClientInterface $client = null): self
-    {
-        return new self(
-            clientId: $config['client_id'],
-            client: $client,
-        );
     }
 
     public function find(string $identifier, array $parameters = []): TrackingDetails

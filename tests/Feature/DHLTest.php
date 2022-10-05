@@ -6,23 +6,24 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use ParcelTrap\Contracts\Factory;
 use ParcelTrap\DHL\DHL;
 use ParcelTrap\DTOs\TrackingDetails;
 use ParcelTrap\Enums\Status;
 use ParcelTrap\ParcelTrap;
 
 it('can add the DHL driver to ParcelTrap', function () {
-    $client = ParcelTrap::make(['dhl' => DHL::make(['client_id' => 'abcdefg'])]);
-    $client->addDriver('dhl_other', DHL::make(['client_id' => 'abcdefg']));
+    /** @var ParcelTrap $client */
+    $client = $this->app->make(Factory::class);
 
-    expect($client)->hasDriver('dhl')->toBeTrue();
-    expect($client)->hasDriver('dhl_other')->toBeTrue();
+    $client->extend('dhl_other', fn () => new DHL(clientId: 'abcdefg'));
+
+    expect($client)->driver(DHL::IDENTIFIER)->toBeInstanceOf(DHL::class)
+        ->and($client)->driver('dhl_other')->toBeInstanceOf(DHL::class);
 });
 
 it('can retrieve the DHL driver from ParcelTrap', function () {
-    expect(ParcelTrap::make(['dhl' => DHL::make(['client_id' => 'abcdefg'])]))
-        ->hasDriver('dhl')->toBeTrue()
-        ->driver('dhl')->toBeInstanceOf(DHL::class);
+    expect($this->app->make(Factory::class)->driver(DHL::IDENTIFIER))->toBeInstanceOf(DHL::class);
 });
 
 it('can call `find` on the DHL driver', function () {
@@ -68,7 +69,12 @@ it('can call `find` on the DHL driver', function () {
         'handler' => $handlerStack,
     ]);
 
-    expect(ParcelTrap::make(['dhl' => DHL::make(['client_id' => 'abcdefg'], $httpClient)])->driver('dhl')->find('7777777770'))
+    $this->app->make(Factory::class)->extend(DHL::IDENTIFIER, fn () => new DHL(
+        clientId: 'abcdefg',
+        client: $httpClient,
+    ));
+
+    expect($this->app->make(Factory::class)->driver(DHL::IDENTIFIER)->find('7777777770'))
         ->toBeInstanceOf(TrackingDetails::class)
         ->identifier->toBe('7777777770')
         ->status->toBe(Status::Pre_Transit)
