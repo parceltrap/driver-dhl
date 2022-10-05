@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ## Unreleased
 
+## v1.0.2 - 2022-10-05
+
+### Fixed
+- Resolve status message for description summary ([#2](https://github.com/parceltrap/driver-dhl/pull/2))
+
 ## v1.0.1 - 2022-10-05
 
 ### Fixed
