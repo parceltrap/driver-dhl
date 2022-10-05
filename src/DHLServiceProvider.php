@@ -7,14 +7,22 @@ namespace ParcelTrap\DHL;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\ServiceProvider;
 use ParcelTrap\Contracts\Factory;
+use ParcelTrap\ParcelTrap;
 
 class DHLServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->app->make(Factory::class)->extend(DHL::IDENTIFIER, function () {
+        /** @var ParcelTrap $factory */
+        $factory = $this->app->make(Factory::class);
+
+        $factory->extend(DHL::IDENTIFIER, function () {
+            /** @var Repository $config */
+            $config = $this->app->make(Repository::class);
+
             return new DHL(
-                clientId: (string) $this->app->make(Repository::class)->get('parceltrap.dhl.client_id'),
+                /** @phpstan-ignore-next-line */
+                clientId: (string) $config->get('parceltrap.dhl.client_id'),
             );
         });
     }
