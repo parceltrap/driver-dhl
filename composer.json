@@ -8,7 +8,6 @@
     ],
     "require": {
         "php": "^8.4",
-        "ext-simplexml": "*",
         "graham-campbell/guzzle-factory": "^7.0",
         "parceltrap/parceltrap": "^1.5"
     },
