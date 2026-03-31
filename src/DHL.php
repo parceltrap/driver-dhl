@@ -45,7 +45,7 @@ class DHL implements Driver
 
         $json = $json['shipments'][0];
         assert(isset($json['status']['statusCode']), 'The status is missing from the response');
-        assert(isset($json['status']['status']), 'The summary is missing from the response');
+        assert(isset($json['status']['remark']) || isset($json['status']['status']), 'The summary is missing from the response');
         assert(isset($json['events']), 'The events array is missing from the response');
 
         return new TrackingDetails(
