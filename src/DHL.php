@@ -50,9 +50,9 @@ class DHL implements Driver
 
         return new TrackingDetails(
             identifier: $json['id'],
-            status: $this->mapStatus($json['status']['statusCode']),
             summary: $json['status']['remark'] ?? $json['status']['status'],
             estimatedDelivery: isset($json['estimatedTimeOfDelivery']) ? new DateTimeImmutable($json['estimatedTimeOfDelivery']) : null,
+            status: $this->mapStatus($json['status']['statusCode']),
             events: $json['events'],
             raw: $json,
         );
